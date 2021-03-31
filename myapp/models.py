@@ -8,26 +8,17 @@ from location_field.models.plain import PlainLocationField
 
 
 class Client(models.Model):
-    b_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=20)
-    balance = models.IntegerField(default=0)
+    balance = models.IntegerField(default=0,null=True)
     image = models.ImageField(upload_to='media', null=True, blank=True)
     location = models.CharField(max_length=100)
-    role = models.CharField(max_length=15)
+
+
 
     def __str__(self):
-        return self.b_user.username
+        return self.username
 
-
-class Merchant(models.Model):
-    b_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='merchant')
-    phone_number = models.CharField(max_length=20)
-    image = models.ImageField(upload_to='media', null=True, blank=True)
-    location = models.CharField(max_length=100)
-    role = models.CharField(max_length=15)
-
-    def __str__(self):
-        return self.b_user.username
 
 
 class Category(MPTTModel):
@@ -40,11 +31,8 @@ class Category(MPTTModel):
         return self.name
 
 
-
-
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    merchant = models.ForeignKey(Merchant, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
     description = models.CharField(max_length=255, blank=True)
     image = models.ImageField(upload_to='image', null=True)
@@ -60,7 +48,7 @@ class Product(models.Model):
 
 
 class Transaction(models.Model):
-    user = models.ForeignKey(Client, on_delete=models.CASCADE)
+    user = models.OneToOneField(Client, on_delete=models.CASCADE)
     bank = models.CharField(max_length=25)
     value = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)

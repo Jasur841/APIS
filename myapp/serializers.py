@@ -9,19 +9,16 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class MerchantSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Merchant
-        exclude = ['is_superuser', 'is_staff', 'is_active', 'date_joined', 'groups', 'user_permissions',
-                   'last_login']
 
 
 class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        exclude = ['lft','right','tree_id']
+        # fields = '__all__'
+
+        exclude = ['lft','rght','tree_id']
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -36,6 +33,11 @@ class TransactionsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CartSerializer(serializers.ModelSerializer):
+
+    """
+    GET
+    POST
+    """
     class Meta:
         model = Cart
         fields = '__all__'
@@ -44,4 +46,9 @@ class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = '__all__'
+
+
+
+
+
 

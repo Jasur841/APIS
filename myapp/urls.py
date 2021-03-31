@@ -9,7 +9,8 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('auth',include('rest_framework.urls')),
     path('',include(router.urls))
-]
+
+    ]
 
 # Client
 urlpatterns += [
@@ -18,11 +19,6 @@ urlpatterns += [
 
 ]
 
-# Merchant
-urlpatterns += [
-    path('merchant',views.MerchantListCreate.as_view()),
-    path('merchant/<int:id>',views.MerchantRetrieveUpdateDestroy.as_view())
-]
 
 # Category
 urlpatterns += [
@@ -52,3 +48,7 @@ urlpatterns += [
     path('transaction',views.TransactionListCreate.as_view()),
     path('transaction/<int:id>',views.CartItemRetrieveUpdateDestroy.as_view())
 ]
+
+
+
+
